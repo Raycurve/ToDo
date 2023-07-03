@@ -47,7 +47,7 @@ html{
 }
 input:checked+p {
   text-decoration: line-through;
-  text-decoration-color: #A683E3;
+  text-decoration-color: #17363E;
 }
 input[type="checkbox"] {
   margin: 20px;
@@ -113,6 +113,23 @@ footer {
   background-color: #2E606F;
   text-align: center;
   padding : 2px 10px 2px 10px;
+}
+.reset{
+
+  border-radius: 10px;
+  border-color: transparent;
+  background-color: #94C4D1;
+  color: #fff;
+  font-size: 30px;
+  padding: 10px;
+  position: absolute;
+  bottom: 5%;
+  left: 2%;
+}
+footer{
+  color: white;
+  font-family: 'Montserrat', sans-serif;
+  padding-top: 10px;
 }
 /*
 .heading{
