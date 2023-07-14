@@ -131,6 +131,9 @@ footer{
   font-family: 'Montserrat', sans-serif;
   padding-top: 10px;
 }
+.check{
+  display: flex;
+}
 /*
 .heading{
   background-color: aqua;
