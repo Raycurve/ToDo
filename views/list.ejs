@@ -25,6 +25,7 @@
           <form class="check" action="/delete" method="post">
             <input type="checkbox" name="check" value="<%=itm[i]._id %>" onChange="this.form.submit()">
             <p><%=itm[i].name%></p>
+            <input type="hidden" name="listname" value="<%=mark%>">
           </form>
 
         </div>
@@ -34,10 +35,10 @@
 
     <form class="formadd" action="/" method="post">
       <input type="text" name="task" placeholder="Enter a task" autocomplete="off">
-      <button class="add" type="submit" name="submit">+</button>
+      <button class="add" type="submit" name="submit" value="<%=mark%>">+</button>
     </form>
     <form class="" action="/reset" method="post">
-      <button class="reset" type="submit" name="button">reset</button>
+      <button class="reset" type="submit" name="button" value="<%=mark%>">reset</button>
     </form>
 
     <%- include("footer") -%>

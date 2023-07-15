@@ -10,38 +10,47 @@ app.use(express.static("public"));
 // var item = ["Study","Music","Eat"];
 
 mongoose.connect("mongodb://localhost:27017/todolistDB")
+
 const itemSchema =new mongoose.Schema({
   name: String
 });
 const Item = mongoose.model("items",itemSchema);
 
+const listSchema = new mongoose.Schema({
+  name: String,
+  items: [itemSchema]
+})
+const List = mongoose.model("list",listSchema);
 
 
+const task1 = new Item({
+  name:"task1"
+})
+const task2 = new Item({
+  name:"task2"
+})
+const task3 = new Item({
+  name:"task3"
+})
 
+const defaultItems = [task1,task2,task3];
+var d = new Date();
+const opn ={
+  weekday: "long",
+  day: "numeric",
+  month: "long"
+};
+d = d.toLocaleDateString("en-US",opn);
 
 app.get("/", function(req, res){
-  var d = new Date();
-  var opn ={
-    weekday: "long",
-    day: "numeric",
-    month: "long"
-  };
-  d = d.toLocaleDateString("en-US",opn);
+
 
   Item.find()
   .then((items)=>{
     if(items.length==0){
       //default
-      const task1 = new Item({
-        name:"task1"
-      })
-      const task2 = new Item({
-        name:"task2"
-      })
-      const task3 = new Item({
-        name:"task3"
-      })
-      Item.insertMany([task1,task2,task3]);
+
+      Item.insertMany(defaultItems);
       res.redirect("/");
     }
 
@@ -50,25 +59,79 @@ app.get("/", function(req, res){
 
 });
 
+app.get("/:field",(req,res)=>{
+  // console.log(req.params.field);
+  List.findOne({name: req.params.field})
+  .then((item)=>{
+      if(item){
+        // console.log("found one" + item);
+        res.render("list", {mark : item.name, itm: item.items});
+      }
+      else{
+        const list = new List({
+          name: req.params.field,
+          items: defaultItems
+        });
+        list.save();
+        res.redirect("/"+req.params.field);
+      }
+  })
+
+})
+
 app.post("/",(req,res)=>{
   console.log("add");
   const itemName = req.body.task;
+  const listName = req.body.submit;
   const ad = new Item({name:itemName});
-  ad.save();
-  // item.push(req.body.task);
-  res.redirect("/");
+  if(listName == d){
+    ad.save();
+    // item.push(req.body.task);
+    res.redirect("/");
+  }
+  else{
+    List.findOne({name: req.body.submit})
+    .then((list)=>{
+      list.items.push(ad);
+      list.save();
+      res.redirect("/"+ listName);
+    })
+  }
+
 })
 
 app.post("/delete",(req,res)=>{
-  Item.findOneAndDelete({_id: req.body.check})
-  .then(res.redirect("/"));
+  const itemName = req.body.check;
+  const listName = req.body.listname;
+  // console.log(listName + " "+ itemName);
+  if(listName == d){
+    Item.findOneAndDelete({_id: itemName})
+    .then(res.redirect("/"));
+  }
+  else{
+    List.findOneAndUpdate({name: listName},{$pull :{items:{_id:itemName}}})
+    .then(res.redirect("/"+listName))
+    .catch((err)=>{
+      console.log(err);
+    })
+  }
+
 
 })
 
 app.post("/reset",(req,res)=>{
   console.log("reset");
-  item = [];
-  res.redirect("/");
+  const list = req.body.button;
+  if(list == d){
+    Item.deleteMany({})
+    .then(res.redirect("/"));
+  }
+  else{
+    List.deleteOne({name: list})
+    .then(res.redirect("/"+list));
+  }
+
+
 })
 
 
