@@ -134,6 +134,13 @@ footer{
 .check{
   display: flex;
 }
+
+.list{
+  background-color: powderblue;
+  position: absolute;
+  width: 20vw;
+  height:auto;
+}
 /*
 .heading{
   background-color: aqua;

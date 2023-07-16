@@ -42,6 +42,8 @@ const opn ={
 };
 d = d.toLocaleDateString("en-US",opn);
 
+var li=defaultItems;
+
 app.get("/", function(req, res){
 
 
@@ -53,29 +55,60 @@ app.get("/", function(req, res){
       Item.insertMany(defaultItems);
       res.redirect("/");
     }
-
-    res.render("list",{mark: d, itm: items});
+    List.find({})
+    .then((items)=>{
+        li = items;
+    })
+    .then(
+      res.render("list",{mark: d, itm: items, listsname: li})
+    )
   })
 
 });
 
 app.get("/:field",(req,res)=>{
   // console.log(req.params.field);
-  List.findOne({name: req.params.field})
-  .then((item)=>{
-      if(item){
-        // console.log("found one" + item);
-        res.render("list", {mark : item.name, itm: item.items});
-      }
-      else{
-        const list = new List({
-          name: req.params.field,
-          items: defaultItems
-        });
-        list.save();
-        res.redirect("/"+req.params.field);
-      }
+  List.findOne({ name: req.params.field })
+  .then((item) => {
+    if (item) {
+      return List.find({});
+    } else {
+      const list = new List({
+        name: req.params.field,
+        items: defaultItems,
+      });
+      return list.save().then(() => List.find({}));
+    }
   })
+  .then((items) => {
+    res.render("list", {
+      mark: req.params.field,
+      itm: items.filter((item) => item.name === req.params.field)[0]?.items || [],
+      listsname: items,
+    });
+  })
+  // .then((item)=>{
+  //     if(item){
+  //       // console.log("found one" + item);
+  //       List.find({})
+  //       .then((items)=>{
+  //           li = items;
+  //       })
+  //       .then(
+  //         res.render("list", {mark : item.name, itm: item.items, listsname: li})
+  //       )
+  //     }
+  //     else{
+  //       const list = new List({
+  //         name: req.params.field,
+  //         items: defaultItems
+  //       });
+  //       list.save()
+  //       .then(
+  //         res.redirect("/"+req.params.field)
+  //       )
+  //     }
+  // })
 
 })
 
