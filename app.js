@@ -43,26 +43,38 @@ const opn ={
 };
 d = d.toLocaleDateString("en-US",opn);
 
-var li=defaultItems;
+var li=defaultLists;
 
 app.get("/", function(req, res){
-
 
   Item.find()
   .then((items)=>{
     if(items.length==0){
       //default
-
       Item.insertMany(defaultItems);
       res.redirect("/");
     }
-    List.find({})
-    .then((items)=>{
+    else{
+      List.find({})
+      .then((items)=>{
+      console.log(items);
+      console.log(li);
+      console.log(items.length==0);
+      if(items.length==0){
+        li= defaultLists;
+
+      }else{
         li = items;
-    })
-    .then(
-      res.render("list",{mark: d, itm: items, listsname: li})
-    )
+      }
+
+      Item.find()
+      .then((itemList)=>{
+          res.render("list",{mark: d, itm: itemList, listsname: li})
+        })
+      })
+    }
+
+
   })
 
 });
@@ -166,6 +178,12 @@ app.post("/reset",(req,res)=>{
   }
 
 
+})
+
+app.post("/delList",(req,res)=>{
+  const list = req.body.button;
+  List.deleteOne({name: list})
+  .then(res.redirect("/"));
 })
 
 
