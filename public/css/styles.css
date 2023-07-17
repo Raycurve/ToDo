@@ -84,7 +84,7 @@ p {
 
 }
 
-input[type="text"] {
+.newTask{
   text-align: center;
   height: 60px;
   top: 10px;
@@ -97,7 +97,7 @@ input[type="text"] {
   margin-right: 5px;
 }
 
-input[type="text"]:focus {
+.newTaskfocus {
   outline: none;
   box-shadow: inset 0 -3px 0 0 #5F97AB;
 }
@@ -143,15 +143,51 @@ footer{
 }
 
 .list{
-  border-radius: 20px;
+  border-radius: 20px 20px 0px 0px;
   background-color: powderblue;
-  position: absolute;
+  /* position: absolute; */
   width: 20vw;
   height:auto;
   display: grid;
   justify-content: center;
+  flex: 1 1 100%;
+
+
 }
 
+
+.list-wrap{
+  width: 20vw;
+  position: absolute;
+  display: flex;
+  flex-flow: row wrap;
+}
+.listAdd{
+  /* position:relative; */
+  flex: 1 1 calc(50%  - .5rem);
+
+}
+
+.newL{
+  padding: 0;
+  text-align: center;
+  height: 60px;
+  border-radius: 0px 0px 10px 10px;
+  border: none;
+  background: #fff;
+  font-size: 20px;
+  font-weight: 200;
+  width: 20vw;
+}
+
+.listFlex{
+  display: flex;
+  justify-content: flex-end;
+}
+.addL{
+  position: absolute;
+  margin: 5px 10px 0px 0px;
+}
 .list>h3{
   display:flex;
   justify-content: center;
@@ -179,6 +215,7 @@ footer{
   justify-content: center;
   display: flex;
 }
+
 
 /*
 .heading{
