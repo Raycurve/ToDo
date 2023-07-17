@@ -1,8 +1,7 @@
 <div class="list">
   <h3>Your Lists</h3>
-  <!-- <p><%=listsname%></p> -->
   <% listsname.forEach((item)=>{ %>
-    <p><%=item.name%></p>
+    <a href="/<%=item.name%>""><p><%=item.name%></p></a>
   <% }) %>
 
 </div>

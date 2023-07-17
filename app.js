@@ -24,16 +24,17 @@ const List = mongoose.model("list",listSchema);
 
 
 const task1 = new Item({
-  name:"task1"
+  name:"Hey! Add items here"
 })
 const task2 = new Item({
-  name:"task2"
+  name:"List names will appear here :)"
 })
 const task3 = new Item({
   name:"task3"
 })
 
-const defaultItems = [task1,task2,task3];
+const defaultItems = [task1];
+const defaultLists = [task2];
 var d = new Date();
 const opn ={
   weekday: "long",

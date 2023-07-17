@@ -39,8 +39,12 @@
       <button class="add" type="submit" name="submit" value="<%=mark%>">+</button>
     </form>
     <form class="" action="/reset" method="post">
-      <button class="reset" type="submit" name="button" value="<%=mark%>">reset</button>
+      <button class="reset" type="submit" name="button" value="<%=mark%>">Reset</button>
     </form>
+    <form class="" action="/delList" method="post">
+      <button class="reset del" type="submit" name="button" value="<%=mark%>">Delete list</button>
+    </form>
+
 
     <%- include("footer") -%>
   </body>
