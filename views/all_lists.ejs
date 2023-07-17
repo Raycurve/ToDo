@@ -1,18 +1,24 @@
 <div class="list-wrap">
+  <div class="list">
+    <h3>Your Lists</h3>
+    <% listsname.forEach((item)=>{ %>
+      <a href="/<%=item.name%>""><p><%=item.name%></p></a>
+    <% }) %>
+  </div>
 
+  <div class="listAdd">
+    <form class="listFlex" action="/addList" method="post">
+      <input class="newL" type="text" name="list" placeholder="New list" autocomplete="off">
+      <button class="add addL" type="submit" name="listadd" value="<%=mark%>">+</button>
+    </form>
+  </div>
 
-<div class="list">
-  <h3>Your Lists</h3>
-  <% listsname.forEach((item)=>{ %>
-    <a href="/<%=item.name%>""><p><%=item.name%></p></a>
-  <% }) %>
-
-
-</div>
-<div class="listAdd">
-  <form class="listFlex" action="/" method="post">
-    <input class="newL" type="text" name="list" placeholder="New list" autocomplete="off">
-    <button class="add addL" type="submit" name="listadd" value="<%=mark%>">+</button>
-  </form>
-</div>
+  <div class="butts">
+    <form class="" action="/reset" method="post">
+      <button class="reset" type="submit" name="button" value="<%=mark%>">Reset</button>
+    </form>
+    <form class="" action="/delList" method="post">
+      <button class="reset del" type="submit" name="button" value="<%=mark%>">Delete list</button>
+    </form>
+  </div>
 </div>

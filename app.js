@@ -57,9 +57,6 @@ app.get("/", function(req, res){
     else{
       List.find({})
       .then((items)=>{
-      console.log(items);
-      console.log(li);
-      console.log(items.length==0);
       if(items.length==0){
         li= defaultLists;
 
@@ -186,6 +183,10 @@ app.post("/delList",(req,res)=>{
   .then(res.redirect("/"));
 })
 
+app.post("/addList",(req,res)=>{
+  const name = req.body.list;
+  res.redirect("/"+name);
+})
 
 app.listen(3000, function(){
   console.log("Server started on port 3000.");

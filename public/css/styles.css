@@ -32,9 +32,7 @@ html{
 .wrapp{
   display: flex;
 }
-.reset{
-  position: absolute;
-}
+
 .item {
   min-height: 70px;
   display: flex;
@@ -81,7 +79,7 @@ p {
 }
 .add:hover{
   background-color: #2E606F;
-
+  transition: 0.8s;
 }
 
 .newTask{
@@ -120,15 +118,18 @@ footer {
   padding : 2px 10px 2px 10px;
 }
 .reset{
-  border-radius: 10px;
+  border-radius: 0px 0px 10px 10px;
   border-color: transparent;
   background-color: #94C4D1;
+  color: #00202a;
   color: #fff;
-  font-size: 15px;
+  font-size: 20px;
   padding: 5px;
-  position: absolute;
-  bottom: 5%;
-  left: 4%;
+  width: 20vh;
+}
+.reset:hover{
+  transition: 0.8s;
+  background-color: #2E606F;
 }
 .del{
   left: 10%;
@@ -159,20 +160,22 @@ footer{
 .list-wrap{
   width: 20vw;
   position: absolute;
-  display: flex;
-  flex-flow: row wrap;
+  /* display: flex;
+  flex-flow: column nowrap; */
+  display: grid;
+  grid-template-columns: 1fr; /* Create one column */
+  /* grid-gap: 10px; */
 }
 .listAdd{
   /* position:relative; */
-  flex: 1 1 calc(50%  - .5rem);
-
+  /* flex: 1 1 100%; */
 }
 
 .newL{
   padding: 0;
   text-align: center;
   height: 60px;
-  border-radius: 0px 0px 10px 10px;
+  /* border-radius: 0px 0px 10px 10px; */
   border: none;
   background: #fff;
   font-size: 20px;
@@ -188,12 +191,20 @@ footer{
   position: absolute;
   margin: 5px 10px 0px 0px;
 }
+.butts{
+  display: flex;
+  height: 30px;
+  background-color: #2E606F;
+  justify-content: space-between;
+}
+
 .list>h3{
   display:flex;
   justify-content: center;
   color: #2e606f;
 
 }
+
 
 .list>a{
   text-decoration: none;
@@ -209,6 +220,7 @@ footer{
 }
 
 .list>a:hover{
+  transition: 0.8s;
   background-color: #5f97ab63;
 }
 .list>a>p{
