@@ -4,6 +4,7 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const mongoose = require('mongoose');
 const app = express();
+const _ = require('lodash');
 app.use(bodyParser.urlencoded({extended:true}));
 app.set('view engine','ejs');
 app.use(express.static("public"));
@@ -78,13 +79,13 @@ app.get("/", function(req, res){
 
 app.get("/:field",(req,res)=>{
   // console.log(req.params.field);
-  List.findOne({ name: req.params.field })
+  List.findOne({ name: _.capitalize(req.params.field) })
   .then((item) => {
     if (item) {
       return List.find({});
     } else {
       const list = new List({
-        name: req.params.field,
+        name: _.capitalize(req.params.field),
         items: defaultItems,
       });
       return list.save().then(() => List.find({}));
@@ -92,8 +93,8 @@ app.get("/:field",(req,res)=>{
   })
   .then((items) => {
     res.render("list", {
-      mark: req.params.field,
-      itm: items.filter((item) => item.name === req.params.field)[0]?.items || [],
+      mark: _.capitalize(req.params.field),
+      itm: items.filter((item) => item.name === _.capitalize(req.params.field))[0]?.items || [],
       listsname: items,
     });
   })
