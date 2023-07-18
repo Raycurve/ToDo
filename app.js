@@ -9,8 +9,8 @@ app.use(bodyParser.urlencoded({extended:true}));
 app.set('view engine','ejs');
 app.use(express.static("public"));
 // var item = ["Study","Music","Eat"];
-
-mongoose.connect("mongodb+srv://admin-raycurve:Todo@cluster0.hovsmi3.mongodb.net/todolistDB")
+require('dotenv').config();
+mongoose.connect("mongodb+srv://"+process.env.DB_USERNAME+":"+process.env.DB_PASSWORD+"@cluster0.hovsmi3.mongodb.net/todolistDB")
 
 const itemSchema =new mongoose.Schema({
   name: String
