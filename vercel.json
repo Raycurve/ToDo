@@ -1,5 +1,9 @@
 {
-  "rewrites": [
-    {"source": "/(.*)","destination":"/"}
-  ]
+  "version": 2,
+  "name": "todo_list_app",
+  "builds": [{ "src": "app.js", "use":"@vercel/node"}],
+  "routes": [{"src": "/(.*)","destination":"/app.js"}  }]
+  
+
+
 }
