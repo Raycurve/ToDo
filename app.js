@@ -10,7 +10,7 @@ app.set('view engine','ejs');
 app.use(express.static("public"));
 // var item = ["Study","Music","Eat"];
 
-mongoose.connect("mongodb://localhost:27017/todolistDB")
+mongoose.connect("mongodb+srv://admin-raycurve:Todo@cluster0.hovsmi3.mongodb.net/todolistDB")
 
 const itemSchema =new mongoose.Schema({
   name: String
